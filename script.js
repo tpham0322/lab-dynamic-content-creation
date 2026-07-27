@@ -44,51 +44,18 @@ function addProduct() {
     // Quantity input
     const quantityInput = document.createElement("input");
     quantityInput.type = "number";
-    quantityInput.className = "form-control";
+    quantityInput.className = "form-control quantity-input";
     quantityInput.min = 1;
     quantityInput.value = 1;
 
     // Remove button
     const removeButton = document.createElement("button");
-    removeButton.className = "btn btn-danger";
+    removeButton.className = "btn btn-danger remove-btn";
     removeButton.textContent = "Remove";
 
     // Add initial price
     totalPrice += price;
     updateTotalPrice();
-
-    // Update quantity
-    quantityInput.addEventListener("change", function () {
-
-        let newQuantity = parseInt(quantityInput.value);
-
-        if (isNaN(newQuantity) || newQuantity < 1) {
-            newQuantity = 1;
-            quantityInput.value = 1;
-        }
-
-        const oldQuantity = parseInt(item.dataset.quantity);
-
-        totalPrice -= price * oldQuantity;
-        totalPrice += price * newQuantity;
-
-        item.dataset.quantity = newQuantity;
-
-        updateTotalPrice();
-    });
-
-    // Remove item
-    removeButton.addEventListener("click", function () {
-
-        const quantity = parseInt(item.dataset.quantity);
-
-        totalPrice -= price * quantity;
-
-        updateTotalPrice();
-
-        item.remove();
-
-    });
 
     item.appendChild(productInfo);
     item.appendChild(quantityInput);
@@ -111,6 +78,59 @@ document.addEventListener("keydown", function (event) {
 
     if (event.key === "Enter") {
         addProduct();
+    }
+
+});
+
+// =========================
+// Event Delegation - Remove
+// =========================
+
+cart.addEventListener("click", function (event) {
+
+    if (event.target.classList.contains("remove-btn")) {
+
+        const item = event.target.closest("li");
+
+        const price = parseFloat(item.dataset.price);
+        const quantity = parseInt(item.dataset.quantity);
+
+        totalPrice -= price * quantity;
+
+        updateTotalPrice();
+
+        item.remove();
+    }
+
+});
+
+// ===========================
+// Event Delegation - Quantity
+// ===========================
+
+cart.addEventListener("change", function (event) {
+
+    if (event.target.classList.contains("quantity-input")) {
+
+        const quantityInput = event.target;
+        const item = quantityInput.closest("li");
+
+        let newQuantity = parseInt(quantityInput.value);
+
+        if (isNaN(newQuantity) || newQuantity < 1) {
+            newQuantity = 1;
+            quantityInput.value = 1;
+        }
+
+        const oldQuantity = parseInt(item.dataset.quantity);
+        const price = parseFloat(item.dataset.price);
+
+        totalPrice -= price * oldQuantity;
+        totalPrice += price * newQuantity;
+
+        item.dataset.quantity = newQuantity;
+
+        updateTotalPrice();
     }
 
 });
