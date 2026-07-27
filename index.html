@@ -4,28 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dynamic Shopping Cart</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <h1>Dynamic Shopping Cart</h1>
+  <body class="bg-light">
+    <div class="container py-5">
+      <div class="card shadow">
+        <div class="card-body">
+          <h1 class="text-center mb-4">Dynamic Shopping Cart</h1>
 
-    <div id="product-container">
-      <input type="text" id="product-name" placeholder="Product Name" />
+          <div class="row g-3">
+            <div class="col-md-5">
+              <input
+                type="text"
+                id="product-name"
+                class="form-control"
+                placeholder="Product Name"
+              />
+            </div>
 
-      <input
-        type="number"
-        id="product-price"
-        placeholder="Product Price"
-        min="0"
-        step="0.01"
-      />
+            <div class="col-md-3">
+              <input
+                type="number"
+                id="product-price"
+                class="form-control"
+                placeholder="Product Price"
+                min="0"
+                step="0.01"
+              />
+            </div>
 
-      <button id="add-product">Add Product</button>
+            <div class="col-md-4 d-grid">
+              <button id="add-product" class="btn btn-primary">
+                Add Product
+              </button>
+            </div>
+          </div>
+
+          <hr />
+
+          <ul id="cart" class="list-group mb-4"></ul>
+
+          <h3 class="text-end">
+            Total:
+            <span class="text-success">
+              $<span id="total-price">0.00</span>
+            </span>
+          </h3>
+        </div>
+      </div>
     </div>
-
-    <ul id="cart"></ul>
-
-    <h3>Total: $<span id="total-price">0.00</span></h3>
 
     <script src="script.js"></script>
   </body>
