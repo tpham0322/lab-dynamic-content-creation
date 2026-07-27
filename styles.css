@@ -1,7 +1,19 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+    border-radius: 12px;
+}
+
 .cart-item input {
     width: 80px;
 }
 
 .cart-item button {
     white-space: nowrap;
+}
+
+.list-group-item {
+    gap: 15px;
 }
